@@ -20,17 +20,19 @@ npm install template-printing-eleui
 #### template
 
 类型: Object
+
 为编辑器指定初始模版，不支持双向绑定
 
 #### rightToolbar
 
 类型: String[]
+
 指定右侧工具栏的按钮及顺序，可选值: 'reference', 'export', 'test', 'save'
 
-'reference': 设置套打页面设计的参照图片
-'export': 导出打印模版
-'test': 测试模版
-'save': 保存（触发@save事件）
+- 'reference': 设置套打页面设计的参照图片
+- 'export': 导出打印模版
+- 'test': 测试模版
+- 'save': 保存（触发@save事件）
 
 ### 事件
 
