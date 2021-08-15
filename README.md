@@ -1,4 +1,4 @@
-# template-printing-eleui
+# template-printing-eleui2
 
 套打编辑器/打印，前端打印实现原理为：
 - 解析模版通过 vue 生成 html 视图
@@ -10,7 +10,7 @@
 ## 安装
 
 ```bash
-npm install template-printing-eleui
+npm install template-printing-eleui2 -S
 ```
 
 ## 编辑器（Vue组件：Designer）
@@ -58,6 +58,6 @@ npm install template-printing-eleui
 
 ### 使用
 ```js
-import { Printer } from 'template-printing-eleui'
+import { Printer } from 'template-printing-eleui2'
 Printer.print(template, data)
 ```
