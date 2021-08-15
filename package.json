@@ -1,0 +1,75 @@
+{
+  "name": "template-printing-eleui",
+  "version": "0.1.1",
+  "description": "Print with Template Vue 2 (Designer depend on Element UI)",
+  "main": "./src/index.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeMxself/template-printing.git"
+  },
+  "keywords": [
+    "print",
+    "template print",
+    "vue",
+    "vue2",
+    "element-ui"
+  ],
+  "dependencies": {
+    "html2canvas": "^1.2.2",
+    "jspdf": "^2.3.1",
+    "tree-like-object-utils": "^0.2.1",
+    "vue-draggable-resizable-gorkys": "^2.4.4"
+  },
+  "peerDependencies": {
+    "core-js": "^3.6.5",
+    "element-ui": "^2",
+    "vue": "^2",
+    "vuex": "^3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.2.1",
+    "@vue/babel-preset-jsx": "^1.2.4",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
+    "rollup": "^2.56.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-bundle-analyzer": "^4.4.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
