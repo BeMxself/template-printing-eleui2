@@ -6,19 +6,9 @@ export default {
   computed: {
     designContext() {
       const canvasSize = store.state.ui.canvasSize
-      const bg = store.state.core.referenceBg
-      const offsetX = store.state.core.referenceOffsetX
-      const offsetY = store.state.core.referenceOffsetY
-      const scale = store.state.core.referenceScale
-      const alpha = store.state.core.referenceAlpha
+      const reference = store.getters['design/reference']
       return {
-        referenceImage: {
-          bg,
-          offsetX,
-          offsetY,
-          scale,
-          alpha,
-        },
+        reference,
         canvasSize,
         horizontalMargin: 20,
         scaleType: 'FullWidth',
@@ -40,10 +30,10 @@ export default {
           props={{ props }}
           designContext={this.designContext}
           onNodeSelected={(node) => {
-            store.commit('core/setSelected', node)
+            store.commit('design/setSelected', node)
           }}
-          onNodeUpdated={(node, updates) =>
-            store.dispatch('core/updateNode', { node, updates })
+          onSelectedUpdated={(updates) =>
+            store.dispatch('design/updateSelected', updates)
           }
         ></DesignTimeComponent>
       )
@@ -51,15 +41,15 @@ export default {
     onKeyDown(e) {
       const { keyCode } = e
       if (keyCode === 8 || keyCode === 46) {
-        store.dispatch('core/deleteSelectedNode')
+        store.dispatch('design/deleteSelectedNode')
       }
       if (e.ctrlKey || e.metaKey) {
         switch (e.keyCode) {
           case 67:
-            store.dispatch('core/copySelected')
+            store.dispatch('design/copySelected')
             break
           case 86:
-            store.dispatch('core/pasteCopied')
+            store.dispatch('design/pasteCopied')
             break
         }
       }

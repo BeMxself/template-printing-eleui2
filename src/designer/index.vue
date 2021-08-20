@@ -10,10 +10,15 @@ import TestDialog from './TestDialog'
 export default {
   props: {
     template: { type: Object, default: () => null },
+    designContext: { type: Object, default: () => null },
     rightToolbar: {
       type: Array,
       default: () => ['reference', 'export', 'test', 'save'],
     },
+  },
+  model: {
+    prop: 'template',
+    event: 'update:template',
   },
   data() {
     return {
@@ -30,22 +35,35 @@ export default {
     rootNode() {
       return store.state.core.rootNode
     },
+    reference() {
+      return store.getters['design/reference']
+    },
   },
   watch: {
     template() {
       this.loadTemplate()
     },
+    designContext() {
+      this.loadDesignContext()
+    },
     propsPanelVisible() {
       this.onWindowResize()
     },
     rootNode() {
+      this.$emit('update:template', this.rootNode)
       this.$emit('change', this.rootNode)
+    },
+    reference(reference) {
+      const context = { reference }
+      this.$emit('designContextChanged', context)
+      this.$emit('update:designContext', context)
     },
   },
   mounted() {
     window.addEventListener('resize', this.onWindowResize)
     this.onWindowResize()
     this.loadTemplate()
+    this.loadDesignContext()
   },
   destroyed() {
     window.removeEventListener('resize', this.onWindowResize)
@@ -67,7 +85,7 @@ export default {
                       '此操作将清空当前页面上的内容，请确认是否继续？'
                     )
                 promise
-                  .then(() => store.dispatch('core/addNode', { nodeDefine: d }))
+                  .then(() => store.dispatch('core/initRoot', { type: d.name }))
                   .catch(() => {})
               }}
             ></el-button>
@@ -83,7 +101,7 @@ export default {
               disabled={!store.state.core.rootNode}
               icon={d.icon}
               size="mini"
-              onClick={() => store.dispatch('core/addNode', { nodeDefine: d })}
+              onClick={() => store.dispatch('core/addNode', { type: d.name })}
             ></el-button>
           </el-tooltip>
         )
@@ -193,11 +211,28 @@ export default {
       })
     },
 
-    loadTemplate(tpl) {
-      tpl = tpl || this.template
+    loadTemplate() {
+      const tpl = this.template
       if (!tpl) return
       store.commit('core/setRootNode', tpl)
-      store.commit('core/resetReference')
+    },
+    loadDesignContext() {
+      const { reference } = this.designContext || {}
+      const {
+        dataUrl = null,
+        url = null,
+        offsetX = 0,
+        offsetY = 0,
+        scale = 100,
+        alpha = 0,
+      } = reference || {}
+
+      store.commit('design/setReferenceDataUrl', dataUrl)
+      store.commit('design/setReferenceUrl', url)
+      store.commit('design/setReferenceOffsetX', offsetX)
+      store.commit('design/setReferenceOffsetY', offsetY)
+      store.commit('design/setReferenceScale', scale)
+      store.commit('design/setReferenceAlpha', alpha)
     },
   },
 

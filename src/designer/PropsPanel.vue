@@ -10,7 +10,7 @@ export default {
   },
   computed: {
     selectedNode() {
-      return store.state.core.selectedNode
+      return store.state.design.selectedNode
     },
     selectedNodeDefines() {
       const selectedNode = this.selectedNode
@@ -27,7 +27,7 @@ export default {
         props.push({
           meta: prop,
           editor: decideEditor(prop),
-          value: selectedNode[prop.name] || prop.default,
+          value: selectedNode[prop.name],
         })
       })
       return props
@@ -36,38 +36,47 @@ export default {
   methods: {
     renderProperties() {
       const propsWithRenderMeta = this.propsWithRenderMeta
-      const node = this.selectedNode
       return propsWithRenderMeta.length ? (
         propsWithRenderMeta.map((prop) => {
           if (!prop.editor) {
             console.warn(`无法推断${prop.meta.name}属性的编辑器组件`, prop.meta)
             return null
           }
-          const props = [...prop.editor.meta.extProps, ...prop.editor.meta.optProps]
-          const editorProps = props.reduce((prev, curr) => ({ ...prev, [curr]: prop.meta[curr] }), {
-            value: prop.value,
-          })
+          const props = [
+            ...prop.editor.meta.extProps,
+            ...prop.editor.meta.optProps,
+          ]
+          const editorProps = props.reduce(
+            (prev, curr) => ({ ...prev, [curr]: prop.meta[curr] }),
+            {
+              value: prop.value,
+            }
+          )
           const Component = prop.editor.component
           return (
             <el-form-item label={prop.meta.displayName || prop.meta.name}>
               <Component
                 props={editorProps}
                 onInput={(value) => {
-                  store.dispatch('core/updateNode', { node, updates: { [prop.meta.name]: value } })
+                  store.dispatch('design/updateSelected', {
+                    [prop.meta.name]: value,
+                  })
                 }}
               />
             </el-form-item>
           )
         })
       ) : (
-        <div style='text-align:center;margin:0 0 10px;color:gray;'>未选择节点</div>
+        <div style="text-align:center;margin:0 0 10px;color:gray;">
+          未选择节点
+        </div>
       )
     },
   },
   render() {
     return (
-      <div class='props-panel'>
-        <el-form label-width='90px'>{this.renderProperties()}</el-form>
+      <div class="props-panel">
+        <el-form label-width="90px">{this.renderProperties()}</el-form>
       </div>
     )
   },

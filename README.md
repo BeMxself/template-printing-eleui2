@@ -13,15 +13,36 @@
 npm install template-printing-eleui2 -S
 ```
 
-## 编辑器（Vue组件：Designer）
+在 vue.config.js 中配置显式转译依赖
+
+```js
+  transpileDependencies: ['template-printing-eleui2']
+```
+
+## 编辑器（Designer, Vue组件）
 
 ### 属性
 
-#### template
+#### template（v-model）
 
 类型: Object
 
-为编辑器指定初始模版，不支持双向绑定
+为编辑器指定初始模版，支持双向绑定
+
+
+#### designContext
+
+类型: { reference: {dataUrl, url, offsetX, offsetY, scale, alpha} }
+
+其中 reference.dataUrl 为 dataurl(base64) 格式的参照图片地址，url 为普通 url 格式的参照图片
+
+offsetX, offsetY 为参照图片的偏移量(百分比)，建议取值范围为 -100～100
+
+scale 为参照图片缩放百分比
+
+alpha 为参照图片的透明度
+
+支持双向绑定，在参照图片设置对话框中选择的图片会自动转换为 dataurl 赋给 reference.dataUrl 并清空 reference.url 值（为了识别参照图有没有修改过，以便保存设计期上下文）
 
 #### rightToolbar
 

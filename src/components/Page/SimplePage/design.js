@@ -8,7 +8,7 @@ const DesignTimeComponent = {
     designContext: {
       type: Object,
       default: () => ({
-        referenceImage: {},
+        reference: {},
         canvasSize: { width: 1000, height: 1000 },
         horizontalMargin: 20,
         scaleType: 'FullWidth',
@@ -35,6 +35,7 @@ const DesignTimeComponent = {
       return { width, height }
     },
     renderContext() {
+      // TODO: 需要重构到DesignCanvas中
       const { width } = this.props
       return {
         displayScale: this.pageSize.width / width,
@@ -45,12 +46,13 @@ const DesignTimeComponent = {
     renderPage(page) {
       const { width, height } = this.pageSize
       const {
-        bg,
+        dataUrl,
+        url,
         scale,
         offsetX,
         offsetY,
         alpha = 0,
-      } = this.designContext.referenceImage
+      } = this.designContext.reference
       const style = {
         width: width + 'px',
         height: height + 'px',
@@ -59,7 +61,7 @@ const DesignTimeComponent = {
         boxShadow: '0 0 6px #999',
         position: 'relative',
         backgroundRepeat: 'no-repeat',
-        backgroundImage: `url(${bg})`,
+        backgroundImage: `url(${url || dataUrl})`,
         backgroundSize: `${scale}%`,
         backgroundPosition: `${(offsetX * width) / 100}px ${(offsetY * height) /
           100}px`,
@@ -87,6 +89,7 @@ const DesignTimeComponent = {
         </div>
       )
     },
+    // TODO: 需要重构到DesignCanvas中
     renderNode(node) {
       const compDefine = getDesignTimeDefineByType(node.type)
       const DesignTimeComponent = compDefine.DesignTimeComponent
@@ -97,6 +100,7 @@ const DesignTimeComponent = {
           parent={true}
           props={vdrRect}
           snap={true}
+          // prevent-deactivation={true}
           onDragstop={(x, y) => {
             this.onNodeMoved(node, { x, y })
           }}
@@ -142,7 +146,7 @@ const DesignTimeComponent = {
       })
     },
     updateNodeValue(node, valueMap) {
-      this.$emit('nodeUpdated', node, valueMap)
+      this.$emit('selectedUpdated', valueMap)
     },
     setSelected(node) {
       this.$emit('nodeSelected', node)

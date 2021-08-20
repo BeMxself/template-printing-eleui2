@@ -56,7 +56,7 @@ function print(template, data, options) {
         const canvas = await html2canvas(this.$refs.printing)
         const img = new Image()
         img.src = canvas.toDataURL('image/jpeg')
-        const pdf = new jsPDF({ unit: 'mm', format: [width, height] })
+        const pdf = new jsPDF(width > height ? 'l' : 'p', 'mm', [width, height])
         pdf.addImage(canvas, 'jpg', 0, 0, width, height)
         pdf.autoPrint({ variant: noConform ? 'non-conform' : 'javascript' })
         pdfIframeEle.src = pdf.output('dataurlstring')

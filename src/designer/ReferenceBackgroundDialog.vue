@@ -13,7 +13,7 @@ el-dialog(:visible.sync='visible', title='参照图片设置')
         @click='reset',
         size='small',
         type='danger',
-        v-if='referenceBg'
+        v-if='reference.dataUrl'
       ) 重置
       el-button(
         @click='onChooseImageClick',
@@ -28,7 +28,7 @@ el-dialog(:visible.sync='visible', title='参照图片设置')
         :max='300',
         :min='0.1',
         :step='0.1',
-        :value='scale',
+        :value='reference.scale',
         @input='changeScale',
         show-input
       )
@@ -39,7 +39,7 @@ el-dialog(:visible.sync='visible', title='参照图片设置')
         :max='100',
         :min='-100',
         :step='0.1',
-        :value='offsetX',
+        :value='reference.offsetX',
         @input='changeOffsetX',
         show-input
       )
@@ -50,7 +50,7 @@ el-dialog(:visible.sync='visible', title='参照图片设置')
         :max='100',
         :min='-100',
         :step='0.1',
-        :value='offsetY',
+        :value='reference.offsetY',
         @input='changeOffsetY',
         show-input
       )
@@ -60,7 +60,7 @@ el-dialog(:visible.sync='visible', title='参照图片设置')
         :max='100',
         :min='0',
         :step='1',
-        :value='alpha',
+        :value='reference.alpha',
         @input='changeAlpha',
         show-input
       )
@@ -74,20 +74,8 @@ export default {
     }
   },
   computed: {
-    referenceBg() {
-      return store.state.core.referenceBg
-    },
-    scale() {
-      return store.state.core.referenceScale
-    },
-    offsetX() {
-      return store.state.core.referenceOffsetX
-    },
-    offsetY() {
-      return store.state.core.referenceOffsetY
-    },
-    alpha() {
-      return store.state.core.referenceAlpha
+    reference() {
+      return store.getters['design/reference']
     },
   },
   methods: {
@@ -98,7 +86,7 @@ export default {
       return `${value}%`
     },
     reset() {
-      store.commit('core/resetReference')
+      store.commit('design/resetReference')
     },
     onChooseImageClick() {
       this.$refs.fileInput.value = null
@@ -110,21 +98,22 @@ export default {
       const reader = new FileReader()
       reader.onloadend = (e) => {
         const { result } = e.target || e.srcElement || {}
-        store.commit('core/setReferenceBg', result)
+        store.commit('design/setReferenceUrl', null)
+        store.commit('design/setReferenceDataUrl', result)
       }
       reader.readAsDataURL(file)
     },
     changeScale(value) {
-      store.commit('core/setReferenceScale', value)
+      store.commit('design/setReferenceScale', value)
     },
     changeOffsetX(value) {
-      store.commit('core/setReferenceOffsetX', value)
+      store.commit('design/setReferenceOffsetX', value)
     },
     changeOffsetY(value) {
-      store.commit('core/setReferenceOffsetY', value)
+      store.commit('design/setReferenceOffsetY', value)
     },
     changeAlpha(value) {
-      store.commit('core/setReferenceAlpha', value)
+      store.commit('design/setReferenceAlpha', value)
     },
   },
 }
