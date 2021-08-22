@@ -47,7 +47,7 @@ export default {
       this.loadDesignContext()
     },
     propsPanelVisible() {
-      this.onWindowResize()
+      this.refreshUI()
     },
     rootNode() {
       this.$emit('update:template', this.rootNode)
@@ -60,13 +60,13 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener('resize', this.onWindowResize)
-    this.onWindowResize()
+    window.addEventListener('resize', this.refreshUI)
+    this.refreshUI()
     this.loadTemplate()
     this.loadDesignContext()
   },
   destroyed() {
-    window.removeEventListener('resize', this.onWindowResize)
+    window.removeEventListener('resize', this.refreshUI)
   },
   methods: {
     renderToolbarLeft() {
@@ -200,7 +200,7 @@ export default {
       ) : null
     },
 
-    onWindowResize() {
+    refreshUI() {
       const windowHeight = window.innerHeight
       const containerTop = this.$refs.container.getBoundingClientRect().y
       store.commit('ui/updateDesignerHeight', windowHeight - containerTop)
@@ -212,10 +212,9 @@ export default {
     },
 
     loadTemplate() {
-      const tpl = this.template
-      if (!tpl) return
-      store.commit('core/setRootNode', tpl)
+      store.commit('core/setRootNode', this.template)
     },
+
     loadDesignContext() {
       const { reference } = this.designContext || {}
       const {
@@ -224,7 +223,7 @@ export default {
         offsetX = 0,
         offsetY = 0,
         scale = 100,
-        alpha = 0,
+        alpha = 80,
       } = reference || {}
 
       store.commit('design/setReferenceDataUrl', dataUrl)

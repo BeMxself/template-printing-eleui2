@@ -1,6 +1,6 @@
 {
   "name": "template-printing-eleui2",
-  "version": "0.1.3",
+  "version": "0.1.4-alpha.1",
   "description": "Print with Template Vue 2 (Designer depend on Element UI)",
   "main": "./src/index.js",
   "author": {

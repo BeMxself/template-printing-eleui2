@@ -10,7 +10,7 @@ const ui = {
     referenceScale: 100,
     referenceOffsetX: 0,
     referenceOffsetY: 0,
-    referenceAlpha: 0,
+    referenceAlpha: 80,
   },
   getters: {
     reference(state) {
@@ -60,7 +60,7 @@ const ui = {
       state.referenceScale = 100
       state.referenceOffsetX = 0
       state.referenceOffsetY = 0
-      state.referenceAlpha = 0
+      state.referenceAlpha = 80
     },
     setCopyNode(state, node) {
       state.copyNode = node

@@ -67,6 +67,23 @@ el-dialog(:visible.sync='visible', title='参照图片设置')
 </template>
 <script>
 import store from './store'
+
+async function compressImage(imgUrl) {
+  const MAX_WIDTH = 600
+  const img = new Image()
+  await new Promise((resolve) => {
+    img.onload = (e) => resolve(e)
+    img.src = imgUrl
+  })
+  const { width, height } = img
+  const dWidth = Math.min(width, MAX_WIDTH)
+  const dHeight = height * (dWidth / width)
+  const canvas = document.createElement('canvas')
+  canvas.width = dWidth
+  canvas.height = dHeight
+  canvas.getContext('2d').drawImage(img, 0, 0, dWidth, dHeight)
+  return canvas.toDataURL('image/jpeg', 0.8)
+}
 export default {
   data() {
     return {
@@ -96,10 +113,11 @@ export default {
       const [file] = this.$refs.fileInput.files || []
       if (!file) return
       const reader = new FileReader()
-      reader.onloadend = (e) => {
+      reader.onloadend = async (e) => {
         const { result } = e.target || e.srcElement || {}
+        const dataUrl = await compressImage(result)
         store.commit('design/setReferenceUrl', null)
-        store.commit('design/setReferenceDataUrl', result)
+        store.commit('design/setReferenceDataUrl', dataUrl)
       }
       reader.readAsDataURL(file)
     },

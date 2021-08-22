@@ -30,7 +30,8 @@ const DesignTimeComponent = {
         canvasSize: { width: canvasWidth },
         horizontalMargin = 20,
       } = this.designContext
-      const width = canvasWidth - horizontalMargin * 2
+      // 防止页宽变成负数
+      const width = Math.max(canvasWidth - horizontalMargin * 2, 200)
       const height = width / this.pageAspectRatio
       return { width, height }
     },
