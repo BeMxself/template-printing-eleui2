@@ -1,5 +1,3 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
 module.exports = {
   pages: {
     index: {
@@ -9,8 +7,7 @@ module.exports = {
     },
   },
   configureWebpack: {
-    plugins:
-      process.env.NODE_ENV === 'production' ? [new BundleAnalyzerPlugin()] : [],
+    plugins: process.env.NODE_ENV === 'production' ? [] : [],
     externals:
       process.env.NODE_ENV === 'production' ? { vue: 'Vue', vuex: 'Vuex' } : {},
   },
