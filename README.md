@@ -13,12 +13,6 @@
 npm install template-printing-eleui2 -S
 ```
 
-在 vue.config.js 中配置显式转译依赖
-
-```js
-  transpileDependencies: ['template-printing-eleui2']
-```
-
 ## 编辑器（Designer, Vue组件）
 
 ### 属性
