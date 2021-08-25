@@ -201,6 +201,7 @@ export default {
     },
 
     refreshUI() {
+      console.warn('refresh UI')
       const windowHeight = window.innerHeight
       const containerTop = this.$refs.container.getBoundingClientRect().y
       store.commit('ui/updateDesignerHeight', windowHeight - containerTop)

@@ -1,69 +1,66 @@
-<template lang="pug">
-el-dialog(:visible.sync='visible', title='参照图片设置')
-  el-form(label-width='90px')
-    el-form-item
-      input(
-        @change='chooseImage',
-        accept='.jpg, .jpeg, .png, .gif',
-        ref='fileInput',
-        style='display: none',
-        type='file'
-      )
-      el-button(
-        @click='reset',
-        size='small',
-        type='danger',
-        v-if='reference.dataUrl'
-      ) 重置
-      el-button(
-        @click='onChooseImageClick',
-        size='small',
-        type='primary',
-        v-else
-      ) 选择图片
-    el-form-item(label='缩放')
-      el-slider(
-        :format-tooltip='percentTooltip',
-        :marks='{ 100: "100%" }',
-        :max='300',
-        :min='0.1',
-        :step='0.1',
-        :value='reference.scale',
-        @input='changeScale',
-        show-input
-      )
-    el-form-item(label='横向偏移')
-      el-slider(
-        :format-tooltip='percentTooltip',
-        :marks='{ 0: "0%" }',
-        :max='100',
-        :min='-100',
-        :step='0.1',
-        :value='reference.offsetX',
-        @input='changeOffsetX',
-        show-input
-      )
-    el-form-item(label='纵向偏移')
-      el-slider(
-        :format-tooltip='percentTooltip',
-        :marks='{ 0: "0%" }',
-        :max='100',
-        :min='-100',
-        :step='0.1',
-        :value='reference.offsetY',
-        @input='changeOffsetY',
-        show-input
-      )
-    el-form-item(label='透明度')
-      el-slider(
-        :format-tooltip='percentTooltip',
-        :max='100',
-        :min='0',
-        :step='1',
-        :value='reference.alpha',
-        @input='changeAlpha',
-        show-input
-      )
+<template>
+  <el-dialog :visible.sync="visible" title="参照图片设置">
+    <el-form label-width="90px">
+      <el-form-item>
+        <input
+          @change="chooseImage"
+          accept=".jpg, .jpeg, .png, .gif"
+          ref="fileInput"
+          style="display: none"
+          type="file"
+        />
+        <el-button @click="reset" size="small" type="danger" v-if="reference.dataUrl">重置</el-button>
+        <el-button @click="onChooseImageClick" size="small" type="primary" v-else>选择图片</el-button>
+      </el-form-item>
+      <el-form-item label="缩放">
+        <el-slider
+          :format-tooltip="percentTooltip"
+          :marks="{ 100: &quot;100%&quot; }"
+          :max="300"
+          :min="0.1"
+          :step="0.1"
+          :value="reference.scale"
+          @input="changeScale"
+          show-input="show-input"
+        ></el-slider>
+      </el-form-item>
+      <el-form-item label="横向偏移">
+        <el-slider
+          :format-tooltip="percentTooltip"
+          :marks="{ 0: &quot;0%&quot; }"
+          :max="100"
+          :min="-100"
+          :step="0.1"
+          :value="reference.offsetX"
+          @input="changeOffsetX"
+          show-input="show-input"
+        ></el-slider>
+      </el-form-item>
+      <el-form-item label="纵向偏移">
+        <el-slider
+          :format-tooltip="percentTooltip"
+          :marks="{ 0: &quot;0%&quot; }"
+          :max="100"
+          :min="-100"
+          :step="0.1"
+          :value="reference.offsetY"
+          @input="changeOffsetY"
+          show-input="show-input"
+        ></el-slider>
+      </el-form-item>
+      <el-form-item label="透明度">
+        <el-slider
+          :format-tooltip="percentTooltip"
+          :max="100"
+          :min="0"
+          :step="1"
+          :value="reference.alpha"
+          @input="changeAlpha"
+          show-input="show-input"
+        ></el-slider>
+      </el-form-item>
+    </el-form>
+  </el-dialog>
 </template>
 <script>
 import store from './store'

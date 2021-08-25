@@ -54,8 +54,6 @@ function print(template, data, options) {
       },
       async print() {
         const canvas = await html2canvas(this.$refs.printing)
-        const img = new Image()
-        img.src = canvas.toDataURL('image/jpeg')
         const pdf = new jsPDF(width > height ? 'l' : 'p', 'mm', [width, height])
         pdf.addImage(canvas, 'jpg', 0, 0, width, height)
         pdf.autoPrint({ variant: noConform ? 'non-conform' : 'javascript' })
@@ -64,13 +62,18 @@ function print(template, data, options) {
     },
     render() {
       const renderContext = { displayScale: quality }
-      const style = {
+      const printingStyle = {
+        width: `${width * quality}px`,
+        height: `${height * quality}px`,
+        background: 'white',
+      }
+      const wrapperStyle = {
         position: 'absolute',
         left: `-${width * quality}px`,
       }
       return (
-        <div id={printRenderDiv} style={style}>
-          <div ref="printing" style="background:white">
+        <div id={printRenderDiv} style={wrapperStyle}>
+          <div ref="printing" style={printingStyle}>
             {this.renderNode(template, renderContext, data)}
           </div>
         </div>

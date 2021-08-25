@@ -5,11 +5,15 @@ export const meta = {
   extProps: ['enum'],
 }
 export default {
+  meta,
   props: ['enum', 'value', 'name'],
   render() {
     const enums = this.enum || []
     return (
-      <el-select value={this.value} onInput={(value) => this.$emit('input', value)}>
+      <el-select
+        value={this.value}
+        onInput={(value) => this.$emit('input', value)}
+      >
         {enums.map((opt) => {
           var label = opt
           var value = opt

@@ -4,6 +4,7 @@ export const meta = {
   type: 'string',
 }
 export default {
+  meta,
   props: {
     value: { type: String, default: '' },
   },

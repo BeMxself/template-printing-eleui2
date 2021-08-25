@@ -1,8 +1,11 @@
-<template lang="pug">
-el-dialog(:visible.sync='visible', title='测试套打模版')
-  div 测试数据
-    el-input(type='textarea', rows='10', v-model='dataJson')
-  el-button(type='primary', @click='print', :disabled='!dataContext') 打印
+<template>
+  <el-dialog :visible.sync="visible" title="测试套打模版">
+    <div>
+      测试数据
+      <el-input rows="10" type="textarea" v-model="dataJson"></el-input>
+    </div>
+    <el-button :disabled="!dataContext" @click="print" type="primary">打印</el-button>
+  </el-dialog>
 </template>
 <script>
 import printer from '../printer'

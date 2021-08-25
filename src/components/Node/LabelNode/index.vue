@@ -1,6 +1,7 @@
-<template lang="pug">
-.label-node(:style='style')
-  span(:style='spanStyle', style='width: 100%') {{ displayValue }}
+<template>
+  <div :style="style" class="label-node">
+    <span :style="spanStyle" style="width: 100%">{{ displayValue }}</span>
+  </div>
 </template>
 <script>
 const V_ALIGN_MAP = {
@@ -31,7 +32,12 @@ export default {
   },
   computed: {
     displayValue() {
-      return (this.dataContext && this.bindField && this.dataContext[this.bindField]) || this.text
+      return (
+        (this.dataContext &&
+          this.bindField &&
+          this.dataContext[this.bindField]) ||
+        this.text
+      )
     },
     displayScale() {
       return (this.renderContext && this.renderContext.displayScale) || 1

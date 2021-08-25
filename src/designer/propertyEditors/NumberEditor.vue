@@ -5,7 +5,11 @@ export const meta = {
   optProps: ['precision'],
 }
 export default {
-  props: { value: { type: Number, default: null }, precision: { type: Number, default: 0 } },
+  meta,
+  props: {
+    value: { type: Number, default: null },
+    precision: { type: Number, default: 0 },
+  },
   data() {
     return {
       inputValue: null,
@@ -26,7 +30,7 @@ export default {
   render() {
     return (
       <el-input
-        type='number'
+        type="number"
         value={this.displayValue}
         onInput={(value) => (this.inputValue = Number.parseFloat(value))}
         onChange={(value) => this.$emit('input', Number.parseFloat(value))}
