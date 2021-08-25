@@ -185,7 +185,7 @@ export default {
       displayName: '尺寸单位',
       type: 'string',
       default: 'mm',
-      enum: ['mm'],
+      enum: [{ label: '毫米 (mm)', value: 'mm' }],
     },
   ],
 }

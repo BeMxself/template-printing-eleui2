@@ -53,7 +53,10 @@ function print(template, data, options) {
         )
       },
       async print() {
-        const canvas = await html2canvas(this.$refs.printing)
+        const canvas = await html2canvas(this.$refs.printing, {
+          allowTaint: false,
+          useCORS: true,
+        })
         const pdf = new jsPDF(width > height ? 'l' : 'p', 'mm', [width, height])
         pdf.addImage(canvas, 'jpg', 0, 0, width, height)
         pdf.autoPrint({ variant: noConform ? 'non-conform' : 'javascript' })

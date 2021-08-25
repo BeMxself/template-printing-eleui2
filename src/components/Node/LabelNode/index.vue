@@ -1,5 +1,5 @@
 <template>
-  <div :style="style" class="label-node">
+  <div :style="style">
     <span :style="spanStyle" style="width: 100%">{{ displayValue }}</span>
   </div>
 </template>
@@ -71,6 +71,7 @@ export default {
       const verticalAlign = this.verticalAlign || 'center'
       const alignItems = V_ALIGN_MAP[verticalAlign] || 'center'
       return {
+        position: 'absolute',
         left: `${this.displayX}px`,
         top: `${this.displayY}px`,
         width: `${this.displayWidth}px`,
@@ -95,8 +96,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.label-node {
-  position: absolute;
-}
-</style>

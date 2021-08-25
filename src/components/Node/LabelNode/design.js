@@ -8,7 +8,10 @@ const DesignTimeComponent = {
   render() {
     const props = this.props
     const displayText =
-      (props.bindField && `[${props.bindField}]`) || props.text || props.name || '<空标签>'
+      (props.bindField && `[${props.bindField}]`) ||
+      props.text ||
+      props.name ||
+      '<空标签>'
     return (
       <LabelNode
         width={props.width}
@@ -34,8 +37,20 @@ export default {
   defaultProps: { width: 25, height: 8, x: 10, y: 10 },
   properties: [
     ...NodeProps,
-    { name: 'width', displayName: '宽度', type: 'number', default: 25, precision: 1 },
-    { name: 'height', displayName: '高度', type: 'number', default: 8, precision: 1 },
+    {
+      name: 'width',
+      displayName: '宽度',
+      type: 'number',
+      default: 25,
+      precision: 1,
+    },
+    {
+      name: 'height',
+      displayName: '高度',
+      type: 'number',
+      default: 8,
+      precision: 1,
+    },
     { name: 'text', displayName: '文字', type: 'string', default: 'Label' },
     { name: 'bindField', displayName: '绑定字段', type: 'string', default: '' },
     {
@@ -43,32 +58,61 @@ export default {
       displayName: '文字对齐',
       type: 'string',
       default: 'left',
-      enum: ['left', 'center', 'right'],
+      enum: [
+        { label: '左对齐', value: 'left' },
+        { label: '居中', value: 'center' },
+        { label: '右对齐', value: 'right' },
+      ],
     },
     {
       name: 'verticalAlign',
       displayName: '纵向对齐',
       type: 'string',
       default: 'center',
-      enum: ['top', 'center', 'bottom'],
+      enum: [
+        { label: '顶部对齐', value: 'top' },
+        { label: '垂直居中', value: 'center' },
+        { label: '底部对齐', value: 'bottom' },
+      ],
     },
-    { name: 'fontName', displayName: '字体', type: 'string', default: '' },
-    { name: 'fontSize', displayName: '字体大小', type: 'string', default: '12pt' },
-    { name: 'fontColor', displayName: '颜色', type: 'string', default: 'black' },
+    { name: 'fontName', displayName: '字体', type: 'string', default: '宋体' },
+    {
+      name: 'fontSize',
+      displayName: '字体大小',
+      type: 'string',
+      default: '12pt',
+    },
+    {
+      name: 'fontColor',
+      displayName: '颜色',
+      type: 'string',
+      default: 'black',
+    },
     {
       name: 'fontWeight',
       displayName: '字重',
       type: 'string',
       default: 'normal',
-      enum: ['normal', 'bold'],
+      enum: [
+        { label: '普通', value: 'normal' },
+        { label: '加粗', value: 'bold' },
+      ],
     },
     {
       name: 'fontStyle',
       displayName: '字体样式',
       type: 'string',
       default: 'normal',
-      enum: ['normal', 'italic'],
+      enum: [
+        { label: '普通', value: 'normal' },
+        { label: '斜体', value: 'italic' },
+      ],
     },
-    { name: 'multipleLine', displayName: '自动换行', type: 'boolean', default: false },
+    {
+      name: 'multipleLine',
+      displayName: '自动换行',
+      type: 'boolean',
+      default: false,
+    },
   ],
 }

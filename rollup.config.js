@@ -10,7 +10,6 @@ import postcss from 'rollup-plugin-postcss'
 const config = {
   input: 'src/index.js', // 必须，入口文件
   external: [
-    'core-js',
     'regenerator-runtime',
     'vue',
     'vuex',
@@ -22,9 +21,9 @@ const config = {
   output: {
     format: 'es',
     dir: 'dist',
-    // globals: {
-    //   vue: 'Vue', // 告诉rollup全局变量Vue即是vue
-    // },
+    globals: {
+      vue: 'Vue', // 告诉rollup全局变量Vue即是vue
+    },
   },
   plugins: [
     // 引入的插件在这里配置
@@ -50,14 +49,13 @@ const config = {
           '@vue/cli-plugin-babel/preset',
           {
             targets: {
-              ie: 11,
+              browsers: ['> 1%'],
             },
             modules: false,
             useBuiltIns: false,
-            corejs: 3,
+            // debug: true,
           },
         ],
-        ['@babel/preset-env'],
       ],
       plugins: [
         // ['@babel/plugin-transform-runtime', { corejs: 3 }],
